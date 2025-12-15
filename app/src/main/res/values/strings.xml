@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">game</string>
+    <string name="restart">Restart game</string>
+    <string name="next">Next level</string>
+</resources>
