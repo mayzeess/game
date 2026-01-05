@@ -83,15 +83,13 @@ fun EndlessGameScreen(
     LaunchedEffect(restartLevel) {
         enemies.clear()
         repeat(currentLevel.enemyCount) {
-
             val dx = listOf(-1f, 1f).random()
             val dy = listOf(-1f, 1f).random()
-
             enemies.add(
                 Enemy(
                     position = Offset(
-                        x = (450..750).random().toFloat(),
-                        y = (1000..1500).random().toFloat()
+                        x = (450..550).random().toFloat(),
+                        y = (550..550).random().toFloat()
                     ),
                     image = enemyImg,
                     speed = Offset(
@@ -126,7 +124,6 @@ fun EndlessGameScreen(
                 enemySpawnTimer += delta
                 player.update(screenWidth, screenHeight)
                 enemies.forEach { it.update(screenWidth, screenHeight) }
-
                 enemies.forEach { enemy ->
                     if (checkCollision(player, enemy)) {
                         isGameOver = true
@@ -161,14 +158,13 @@ fun EndlessGameScreen(
     LaunchedEffect(isGameOver) {
         while (!isGameOver) {
             delay(1000)
-
             if (enemySpawnTimer >= timeEnemy) {
                 stage++
                 enemies.add(
                     Enemy(
                         position = Offset(
-                            x = (0..screenWidth.toInt()).random().toFloat() -150,
-                            y = (0..screenHeight.toInt()).random().toFloat() - 150
+                            x = (150..screenWidth.toInt()).random().toFloat() - 150,
+                            y = (150..screenHeight.toInt()).random().toFloat() - 150
                         ),
                         image = enemyImg,
                         speed = Offset(

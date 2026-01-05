@@ -7,6 +7,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.ImageBitmap
 
 class Player(
+    val id: Int = 0,
     position: Offset,
     var image: ImageBitmap,
     var speed: Float = 3f
@@ -15,16 +16,25 @@ class Player(
 
     private var velocity = Offset(speed, 0f)
 
-    fun update(screenWidth: Float, screenHeight: Float) {
+    fun update(worldW: Float, worldH: Float) {
         position += velocity
 
         val w = image.width.toFloat()
         val h = image.height.toFloat()
 
-        if (position.x < 0 || position.x + w > screenWidth) {
+        if (position.x < 0) {
+            position = position.copy(x = 0f)
+            velocity = velocity.copy(x = -velocity.x)
+        } else if (position.x + w > worldW) {
+            position = position.copy(x = worldW - w)
             velocity = velocity.copy(x = -velocity.x)
         }
-        if (position.y < 0 || position.y + h > screenHeight) {
+
+        if (position.y < 0) {
+            position = position.copy(y = 0f)
+            velocity = velocity.copy(y = -velocity.y)
+        } else if (position.y + h > worldH) {
+            position = position.copy(y = worldH - h)
             velocity = velocity.copy(y = -velocity.y)
         }
     }

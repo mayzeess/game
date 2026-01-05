@@ -37,7 +37,7 @@ fun GameScreen(onExit: () -> Unit) {
 
     var currentLevelIndex by remember { mutableStateOf(0) }
     val currentLevel = gameLevels[currentLevelIndex]
-
+    var timeNextLevel by remember { mutableStateOf(100.0) }
     var player by remember {
         mutableStateOf(
             Player(
@@ -113,24 +113,25 @@ fun GameScreen(onExit: () -> Unit) {
     }
 
     LaunchedEffect(currentLevelIndex, restartLevel) {
-        delay(1000)
+        delay(100000)
         if (!isGameOver) levelCompleted = true
     }
 
     LaunchedEffect(Unit) {
+        val interval = 16L
         while (true) {
-
             if (!isGameOver && !levelCompleted) {
                 player.update(screenWidth, screenHeight)
                 enemies.forEach { it.update(screenWidth, screenHeight) }
-
+                val delta = interval / 1000.0
+                timeNextLevel -= delta
                 enemies.forEach { enemy ->
                     if (checkCollision(player, enemy)) {
                         isGameOver = true
                     }
                 }
             }
-            delay(16)
+            delay(interval)
         }
     }
 
@@ -167,7 +168,20 @@ fun GameScreen(onExit: () -> Unit) {
             enemies.forEach {
                 drawImage(it.image, topLeft = it.position)
             }
-
+            val formattedTime = String.format("%.3f", timeNextLevel)
+            val time = textMeasurer.measure(
+                text = "Время: $formattedTime сек.",
+                style = TextStyle(color = Color.Black, fontSize = 15.sp)
+            )
+            drawText(
+                textMeasurer,
+                text = "Время: $formattedTime сек.",
+                Offset(
+                    size.width / 4 - time.size.width / 2,
+                    time.size.height.toFloat()
+                ),
+                TextStyle(Color.Black, 15.sp)
+            )
             if (isGameOver) {
 
                 drawRect(Color(0x88000000))

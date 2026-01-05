@@ -12,7 +12,8 @@ import androidx.compose.ui.unit.dp
 fun MenuScreen(
     onStartLevels: () -> Unit,
     onStartEndless: () -> Unit,
-    TopPlayer: () -> Unit
+    TopPlayer: () -> Unit,
+    onOnline: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -38,6 +39,14 @@ fun MenuScreen(
         }
         Spacer(Modifier.height(24.dp))
 
+        Button(
+            onClick = onOnline,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Онлайн")
+        }
+
+        Spacer(Modifier.height(24.dp))
         Button(
             onClick = TopPlayer,
             modifier = Modifier.fillMaxWidth()

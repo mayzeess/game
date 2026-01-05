@@ -5,6 +5,7 @@ import androidx.compose.ui.res.imageResource
 
 object GameAssets {
     lateinit var playerImg: ImageBitmap
+    lateinit var playerImg2: ImageBitmap
     lateinit var up: ImageBitmap
     lateinit var down: ImageBitmap
     lateinit var left: ImageBitmap
@@ -13,6 +14,7 @@ object GameAssets {
 
     fun load(resources: android.content.res.Resources) {
         playerImg = ImageBitmap.imageResource(resources, R.drawable.player1)
+        playerImg2 = ImageBitmap.imageResource(resources, R.drawable.player2)
         up = ImageBitmap.imageResource(resources, R.drawable.up1)
         down = ImageBitmap.imageResource(resources, R.drawable.down1)
         left = ImageBitmap.imageResource(resources, R.drawable.left1)
@@ -30,20 +32,20 @@ data class Level(
 val gameLevels = listOf(
     Level(
         background = R.drawable.background01,
-        enemyCount = 1,
+        enemyCount = 3,
         enemySpeed = 5f,
         playerSpeed = 7f
     ),
     Level(
         background = R.drawable.background02,
-        enemyCount = 1,
+        enemyCount = 5,
         enemySpeed = 7f,
         playerSpeed = 9f
     ),
     Level(
         background = R.drawable.background03,
-        enemyCount = 1,
-        enemySpeed = 10f,
+        enemyCount = 6,
+        enemySpeed = 11f,
         playerSpeed = 12f
     )
 )
@@ -54,3 +56,15 @@ val endlessLevel = Level(
     enemySpeed = 5f,
     playerSpeed = 7f
 )
+
+val OnlineLevel = Level(
+    background = R.drawable.background01,
+    enemyCount = 1,
+    enemySpeed = 2f,
+    playerSpeed = 5f
+)
+
+object OnlineWorld {
+    const val W = 1000f
+    const val H = 1600f
+}
